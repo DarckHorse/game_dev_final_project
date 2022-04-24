@@ -8,9 +8,10 @@ public class BulletBeh : MonoBehaviour
 
     private Vector3 GRAVITY = new Vector3(0, -10.0f, 0);
 
+    //this script doesnt really do anything
+
     void Start()
     {
-        
         m_velocity = Vector3.zero;
     }
 
@@ -24,7 +25,7 @@ public class BulletBeh : MonoBehaviour
     void FixedUpdate()
     {
         transform.position += m_velocity *  Time.deltaTime;  
-        m_velocity += GRAVITY * Time.deltaTime;
+        //m_velocity += GRAVITY * Time.deltaTime;
         //Debug.Log(transform.position);
     }
 }

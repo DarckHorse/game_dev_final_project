@@ -13,6 +13,7 @@ public class Gun : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //rotates gun up/down
         transform.Rotate(new Vector3(-Input.GetAxis("Mouse Y"), 0, 0));
     }
 }

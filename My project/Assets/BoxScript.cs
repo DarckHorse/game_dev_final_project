@@ -25,13 +25,13 @@ public class BoxScript : MonoBehaviour
         if(other.gameObject.tag == "Bullet")
         {
             m_Renderer.material.SetColor("_Color", Color.red);
-            Debug.Log("hit by bullet");
+            //Debug.Log("hit by bullet");
         }
 
         if(other.gameObject.tag == "Player")
         {
             m_Renderer.material.SetColor("_Color", Color.blue);
-            Debug.Log("hit by player");
+            //Debug.Log("hit by player");
         }
     }
 }

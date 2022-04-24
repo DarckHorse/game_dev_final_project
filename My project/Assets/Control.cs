@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Control : MonoBehaviour
 {
-
-    //Rigidbody m_rb;
     CharacterController m_cc;
 
     private const float SPEED = 3.0f;
@@ -13,18 +11,19 @@ public class Control : MonoBehaviour
     private const float GRAVITY = -5.0f;
 
     
-    public GameObject m_bullet;
-    public Transform m_barrel;
+    public GameObject m_bullet; //bullet prefab
+    public Transform m_barrel;  
     public Transform firePoint;
 
     Vector3 user_input;
 
     public float shootCooldown;
 
+    //shoots gun
     public void shoot()
     {
+        //firePoint is at the end of the gun
         GameObject bullet = Instantiate(m_bullet, firePoint.position, firePoint.rotation);
-        bullet.GetComponent<BulletBeh>().Fire(m_barrel, 50.0f);
         Rigidbody rb = bullet.GetComponent<Rigidbody>();
         rb.AddForce(firePoint.up * 50.0f, ForceMode.Impulse);
         Destroy(bullet, 1f);
@@ -33,9 +32,7 @@ public class Control : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //m_rb = GetComponent<Rigidbody>();
         m_cc = GetComponent<CharacterController>();
-
         Cursor.lockState = CursorLockMode.Locked; 
     }
 
@@ -61,9 +58,7 @@ public class Control : MonoBehaviour
 
     void FixedUpdate()
     {
-        //m_rb.AddForce(move * ACCEL, ForceMode.Acceleration);
         m_cc.Move(user_input * SPEED * Time.deltaTime);
-
 
         if (Input.GetAxis("Fire1") > 0)
         {
@@ -73,10 +68,6 @@ public class Control : MonoBehaviour
         }
         shootCooldown = shootCooldown - Time.deltaTime;
 
-        /*if (Input.GetAxis("Fire1") > 0) {
-            GameObject bullet = Instantiate(m_bullet, firePoint.position, firePoint.rotation);
-            bullet.GetComponent<Bullet>().Fire(m_barrel, 50.0f);
-        }*/
     }
 }
 
