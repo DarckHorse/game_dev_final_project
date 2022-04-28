@@ -6,8 +6,8 @@ public class Control : MonoBehaviour
 {
     CharacterController m_cc;
 
-    private const float SPEED = 3.0f;
-    private const float JUMP_SPEED = 3.0f;
+    private const float SPEED = 2.0f;
+    private const float JUMP_SPEED = 2.0f;
     private const float GRAVITY = -5.0f;
 
     
@@ -25,7 +25,7 @@ public class Control : MonoBehaviour
         //firePoint is at the end of the gun
         GameObject bullet = Instantiate(m_bullet, firePoint.position, firePoint.rotation);
         Rigidbody rb = bullet.GetComponent<Rigidbody>();
-        rb.AddForce(firePoint.up * 50.0f, ForceMode.Impulse);
+        rb.AddForce(firePoint.up * 25.0f, ForceMode.Impulse);
         Destroy(bullet, 1f);
     }
 
@@ -39,6 +39,22 @@ public class Control : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        transform.Rotate(new Vector3(0, Input.GetAxis("Mouse X"), 0));
+    }
+
+    void FixedUpdate()
+    {
+        m_cc.Move(user_input * SPEED * Time.deltaTime);
+
+        if (Input.GetAxis("Fire1") > 0)
+        {
+            if(shootCooldown <= 0.005f){
+                shoot();
+                shootCooldown = .30f;}
+        }
+        shootCooldown = shootCooldown - Time.deltaTime;
+
+        
         if(m_cc.isGrounded)
         {
             user_input = transform.forward * Input.GetAxis("Vertical") + transform.right * Input.GetAxis("Horizontal");
@@ -53,20 +69,7 @@ public class Control : MonoBehaviour
         {
         user_input += Vector3.up * GRAVITY * Time.deltaTime;
         }
-        transform.Rotate(new Vector3(0, Input.GetAxis("Mouse X"), 0));
-    }
-
-    void FixedUpdate()
-    {
-        m_cc.Move(user_input * SPEED * Time.deltaTime);
-
-        if (Input.GetAxis("Fire1") > 0)
-        {
-            if(shootCooldown <= 0.005f){
-                shoot();
-                shootCooldown = .1f;}
-        }
-        shootCooldown = shootCooldown - Time.deltaTime;
+        
 
     }
 }
