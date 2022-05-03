@@ -8,6 +8,7 @@ public class Player_Control : MonoBehaviour
     public Transform m_barrel;  
     public Transform firePoint;
     public float shotCooldown;
+    int hitpoints = 50;
     protected Agent _agent;
 
     // //shoots gun
@@ -30,19 +31,20 @@ public class Player_Control : MonoBehaviour
 
     protected virtual void InitBehaviors()
     {
-        _agent.AddBehavior("Airborne", new IAirborne());
-        _agent.AddBehavior("Grounded", new IGrounded());
-        _agent.AddBehavior("Health", new IHealth());
-        Debug.Log("Player Behaviors Added");
+        _agent.AddBehavior("Airborne", new IControlAirborne());
+        _agent.AddBehavior("Grounded", new IControlGrounded());
+        // Debug.Log("Player Behaviors Added");
         _agent.ActivateBehavior("Airborne");
-        _agent.ActivateBehavior("Health");
-        Debug.Log("Player Behaviors Activated");
+        // Debug.Log("Player Behaviors Activated");
     }
 
     // Update is called once per frame
     void Update()
     {
         transform.Rotate(new Vector3(0, Input.GetAxis("Mouse X"), 0));
+        if (hitpoints <= 0) {
+            _agent.Die();
+        }
     }
 
     void FixedUpdate()
@@ -65,6 +67,14 @@ public class Player_Control : MonoBehaviour
         //         velocity += Vector3.up * jump_speed;
         //     }
         // }
+    }
+
+    void OnTriggerEnter(Collider collider)
+    {
+        if (collider.tag == "Weapon") {
+            hitpoints -= (int)collider.gameObject.GetComponent<WeaponAgent>().Damage;
+            collider.gameObject.SetActive(false);
+        }
     }
 }
 

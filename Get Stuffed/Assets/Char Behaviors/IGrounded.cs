@@ -8,7 +8,7 @@ public class IGrounded : IBehavior
 
     public void Activate(Agent agent)
     {
-        Debug.Log("Grounded");
+        Debug.Log("Mob Grounded start");
         _agent = agent;
     }
 

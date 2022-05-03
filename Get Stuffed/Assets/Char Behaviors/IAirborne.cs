@@ -17,7 +17,7 @@ public class IAirborne : IBehavior
     public void Update()
     {
         if (_agent.CheckGround()) {
-            _agent.ActivateBehavior("IGrounded");
+            _agent.ActivateBehavior("Grounded");
             return;
         }
         else {

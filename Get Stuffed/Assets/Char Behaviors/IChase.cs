@@ -11,7 +11,7 @@ public class IChase : IBehavior
     public void Activate(Agent agent)
     {        
         _agent = agent;
-        Debug.Log("chase start");
+        Debug.Log("Mob chase start");
         target = _agent.target;
     }
 
@@ -31,7 +31,8 @@ public class IChase : IBehavior
     {
         if (collision.collider.GetType() == typeof(SphereCollider)) {
             if (collision.collider.gameObject != target) {
-                _agent.ActivateBehavior("IPercieve");
+                _agent.ActivateBehavior("IPercieve");                
+                Debug.Log(" Mob Percieve Activated");
             }
         }
     }

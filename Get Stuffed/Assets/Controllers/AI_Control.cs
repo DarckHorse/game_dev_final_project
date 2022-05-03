@@ -19,10 +19,9 @@ public class AI_Control : MonoBehaviour
         _agent.AddBehavior("Grounded", new IGrounded());
         _agent.AddBehavior("Percieve", new IPercieve());
         _agent.AddBehavior("OnAware", new IChase());
-        _agent.AddBehavior("Health", new IHealth());
-        _agent.ActivateBehavior("Percieve");
+        // Debug.Log("AI Behaviors Added");
+        _agent.ActivateMovementBehavior("Percieve");
         _agent.ActivateBehavior("Airborne");
-        _agent.ActivateBehavior("Health");
     }
 
     // Update is called once per frame

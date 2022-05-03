@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Agent : MonoBehaviour
 {
@@ -42,7 +43,8 @@ public class Agent : MonoBehaviour
     // behavior system
 
     private Dictionary<string, IBehavior> _behaviors = new Dictionary<string, IBehavior>();
-    private List<IBehavior> _currentBehaviors;
+    private IBehavior _currentBehavior;
+    private IBehavior _movementBehavior;
 
     // add named behavior for this entity
     public void AddBehavior(string name, IBehavior behavior)
@@ -53,9 +55,17 @@ public class Agent : MonoBehaviour
     // activate behavior by name
     public void ActivateBehavior(string name)
     {
-        _currentBehaviors.Add(_behaviors[name]);
-        _currentBehaviors[_currentBehaviors.Count - 1].Activate(this);
-        Debug.Log("Behavior Activated");
+        _currentBehavior = _behaviors[name];
+        _currentBehavior.Activate(this);
+        // Debug.Log(name + " Behavior Activated");
+    }
+
+    // activate behavior by name
+    public void ActivateMovementBehavior(string name)
+    {
+        _movementBehavior = _behaviors[name];
+        _movementBehavior.Activate(this);
+        // Debug.Log(name + "  Behavior Activated");
     }
 
 //------------------------------------------------------------------------------------------------------
@@ -75,7 +85,17 @@ public class Agent : MonoBehaviour
         // for (int i = 0; i < _currentBehaviors.Count; i++) {            
         //     _currentBehaviors[i].Update();
         // }
-        CC.Move(velocity);        
+        if (_currentBehavior != null) {
+        _currentBehavior.Update();
+        }
+        if (_movementBehavior != null) {
+        _movementBehavior.Update();
+        }
+        
+        // cap !vertical velocity at speed
+
+        // Debug.Log(velocity);
+        CC.Move(new Vector3(Math.Clamp(velocity.x, -1 * speed, speed), velocity.y, Math.Clamp(velocity.z, -1 * speed, speed)));
     }
 
     private void OnTriggerStay(Collider other)
@@ -94,8 +114,8 @@ public class Agent : MonoBehaviour
             hitpoints = 3;
         }
         else if (gameObject.tag == "Player") {
-            speed = 5;
-            jump_speed = 1;
+            speed = .5f;
+            jump_speed = 50;
             hitpoints = 50;
         }
     }

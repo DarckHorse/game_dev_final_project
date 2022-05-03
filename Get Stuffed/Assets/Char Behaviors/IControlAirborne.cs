@@ -9,7 +9,7 @@ public class IControlAirborne : IBehavior
     // Start is called before the first frame update
     public void Activate(Agent agent)
     {
-        Debug.Log("Control Airborne");
+        // Debug.Log("Control Airborne");
         _agent = agent;
     }
 
@@ -17,11 +17,12 @@ public class IControlAirborne : IBehavior
     public void Update()
     {
         if (_agent.CheckGround()) {
-            _agent.ActivateBehavior("IGrounded");
+            // Debug.Log("Grounded");
+            _agent.ActivateBehavior("Grounded");
             return;
         }
         else {
-            _agent.velocity -= Vector3.up * gravity;
+            _agent.velocity -= Vector3.up * gravity * Time.deltaTime;
         }
     }
 }
