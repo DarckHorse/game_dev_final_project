@@ -7,7 +7,7 @@ public class Cameras : MonoBehaviour
     internal static object main;
     public float mouseSensitivity = 150f;
     public Transform playerBody;
-    float xRotation = 0f;
+    float xRotation = 11.5f;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,7 +21,7 @@ public class Cameras : MonoBehaviour
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
 
         xRotation -=mouseY;
-        xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+        xRotation = Mathf.Clamp(xRotation, -15f, 20f);
 
         transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
         playerBody.Rotate(Vector3.up * mouseX);
