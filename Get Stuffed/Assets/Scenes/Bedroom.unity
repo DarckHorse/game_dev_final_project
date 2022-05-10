@@ -981,6 +981,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: player_mesh
       objectReference: {fileID: 0}
+    - target: {fileID: 1824383254281994132, guid: f2f983b65fcfd0b4795c8100ee86b805, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2223436374469803247, guid: f2f983b65fcfd0b4795c8100ee86b805, type: 3}
       propertyPath: m_RootOrder
       value: 1
