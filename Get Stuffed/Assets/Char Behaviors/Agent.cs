@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.SceneManagement;
 
 public class Agent : MonoBehaviour
 {
@@ -10,7 +11,8 @@ public class Agent : MonoBehaviour
 
     public GameObject target;
     GameObject spawner;
-
+    
+    public GameObject level;
     CharacterController cc;
     public CharacterController CC
     {
@@ -47,6 +49,8 @@ public class Agent : MonoBehaviour
     private Dictionary<string, IBehavior> _behaviors = new Dictionary<string, IBehavior>();
     private IBehavior _currentBehavior;
     private IBehavior _movementBehavior;
+    
+    MeshRenderer mesh_rend;
 
     // add named behavior for this entity
     public void AddBehavior(string name, IBehavior behavior)
@@ -76,6 +80,8 @@ public class Agent : MonoBehaviour
     void Start()
     {
         cc = gameObject.GetComponent<CharacterController>();
+        
+        mesh_rend = gameObject.GetComponent<MeshRenderer>();
         setCharAtt();
     }
 
@@ -131,10 +137,11 @@ public class Agent : MonoBehaviour
 
     public void Die()
     {
+        
+        level.GetComponent<GenerateEnemies>().Dec();
+        
         Destroy(gameObject);
-        if (gameObject.tag != "Player") {
-            gameObject.GetComponent<GenerateEnemies>().enemyCount -= 1;
-        }
+        
     }
 }
 
