@@ -11,15 +11,37 @@ public class Player_Control : MonoBehaviour
     int hitpoints = 50;
     protected Agent _agent;
 
-    // //shoots gun
-    // public void shoot()
-    // {
-    //     //firePoint is at the end of the gun
-    //     GameObject bullet = Instantiate(m_bullet, firePoint.position, firePoint.rotation);
-    //     Rigidbody rb = bullet.GetComponent<Rigidbody>();
-    //     rb.AddForce(firePoint.up * 25.0f, ForceMode.Impulse);
-    //     Destroy(bullet, 1f);
-    // }
+    //for weapons
+    private int weapon = 1;
+    private int damage = 1;
+    private float range = 1000f;
+
+    //shoots gun
+    public void shoot()
+    {
+        //firePoint is at the end of the gun
+        if(weapon == 1)
+        {
+            RaycastHit hit;
+            Debug.DrawRay(firePoint.transform.position, firePoint.transform.up * range, Color.yellow, .05f);
+            if(Physics.Raycast(firePoint.transform.position, firePoint.transform.up, out hit, range))
+            {
+                Debug.Log(hit.transform.name);
+                Health health = hit.transform.GetComponent<Health>();
+                if(health != null)
+                {
+                    health.TakeDamage(damage);
+                }
+            }
+        }
+
+        if(weapon == 2)
+        {
+            GameObject bullet = Instantiate(m_bullet, firePoint.position, firePoint.rotation);
+            bullet.transform.Rotate(-90.0f, 0.0f, Random.Range(0.0f, 360.0f), Space.Self);
+            Destroy(bullet, 1f);
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -45,18 +67,45 @@ public class Player_Control : MonoBehaviour
         if (hitpoints <= 0) {
             _agent.Die();
         }
+        
+        if(Input.GetKeyDown("1"))
+        {
+            weapon = 1;
+        }
+        else if(Input.GetKeyDown("2"))
+        {
+            weapon = 2;
+        }
+        else if(Input.GetKeyDown("3"))
+        {
+            weapon = 3;
+        }
     }
 
     void FixedUpdate()
     {
         if (Input.GetAxis("Fire1") > 0)
         {
-            Debug.Log("Fire");
-        //     if(shotCooldown <= 0.005f){
-        //         shoot();
-        //         shotCooldown = .30f;}
+            
+             if(shotCooldown <= 0.005f){
+                 //Debug.Log("Fire");
+                 shoot();
+                 switch(weapon)
+                 {
+                    case 1:
+                        shotCooldown = .1f;
+                        break;
+                    case 2:
+                        shotCooldown = 1f;
+                        break;
+                    case 3:
+                        shotCooldown = 4f;
+                        break;
+                 }
+                
+                 }
         }
-        // shotCooldown = shotCooldown - Time.deltaTime;
+         shotCooldown = shotCooldown - Time.deltaTime;
 
         
         // if(_agent.CC.isGrounded)
@@ -72,8 +121,11 @@ public class Player_Control : MonoBehaviour
     void OnTriggerEnter(Collider collider)
     {
         if (collider.tag == "Weapon") {
-            hitpoints -= (int)collider.gameObject.GetComponent<WeaponAgent>().Damage;
-            collider.gameObject.SetActive(false);
+            if(collider != null)
+            {
+                //hitpoints -= (int)collider.gameObject.GetComponent<WeaponAgent>().Damage;
+            }
+            
         }
     }
 }

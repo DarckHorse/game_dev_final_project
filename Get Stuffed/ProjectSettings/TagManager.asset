@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Bullet
   - Bunny
+  - Enemy
+  - Weapon
   layers:
   - Default
   - TransparentFX

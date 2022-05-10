@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class Health : MonoBehaviour
 {
-    public float hp;
+    public float hp = 1;
+    protected Agent _agent;
 
     // Start is called before the first frame update
     void Start()
     {
+        _agent = GetComponent<Agent>();
         
     }
 
@@ -16,14 +18,28 @@ public class Health : MonoBehaviour
     void Update()
     {
         if (hp <= 0) {
-            Die();
+            _agent.Die();
         }
     }
 
     void OnTriggerEnter(Collider collider) 
     {
         if (collider.gameObject.tag == "Weapon") {
-            hp -= collider.gameObject.GetComponent<WeaponAgent>().Damage;
+            //hp -= collider.gameObject.GetComponent<WeaponAgent>().Damage;
+            TakeDamage(1.5f);
         }
     }
+
+    public void TakeDamage(float damage)
+    {
+        hp -= damage;
+        if(hp <= 0)
+        {
+            _agent.Die();
+        }
+    }
+
+
+
+    
 }

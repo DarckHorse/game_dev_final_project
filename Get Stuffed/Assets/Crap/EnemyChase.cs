@@ -9,6 +9,7 @@ public class EnemyChase : MonoBehaviour
     private NavMeshAgent enemy;
     public GameObject Player;
     public float EnemyDistanceRun = .1f;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -29,4 +30,5 @@ public class EnemyChase : MonoBehaviour
             //enemy.SetDestination(newPos);
         }
     }
+    
 }

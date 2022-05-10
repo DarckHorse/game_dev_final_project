@@ -60,7 +60,7 @@ public class IControlGrounded : IBehavior
                 _agent.Velocity += Vector3.up * jump * _agent.Jump_Speed;
             }
             else jump = 0;
-            Debug.Log("jump " + jump);
+            //Debug.Log("jump " + jump);
         }     
     }
 }

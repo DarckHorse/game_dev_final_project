@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.SceneManagement;
+
 
 public class Agent : MonoBehaviour
 {
@@ -9,7 +11,10 @@ public class Agent : MonoBehaviour
     // Variables
 
     public GameObject target;
+    public GameObject level;
     CharacterController cc;
+    MeshRenderer mesh_rend;
+
     public CharacterController CC
     {
         get { return cc; }
@@ -74,6 +79,7 @@ public class Agent : MonoBehaviour
     void Start()
     {
         cc = gameObject.GetComponent<CharacterController>();
+        mesh_rend = gameObject.GetComponent<MeshRenderer>();
         setCharAtt();
     }
 
@@ -96,6 +102,11 @@ public class Agent : MonoBehaviour
 
         // Debug.Log(velocity);
         CC.Move(new Vector3(Math.Clamp(velocity.x, -1 * speed, speed), velocity.y, Math.Clamp(velocity.z, -1 * speed, speed)));
+        
+        //if(transform.position.y <= -100)
+        //{
+        //    Die();
+        //}
     }
 
     private void OnTriggerStay(Collider other)
@@ -115,7 +126,7 @@ public class Agent : MonoBehaviour
         }
         else if (gameObject.tag == "Player") {
             speed = .5f;
-            jump_speed = 50;
+            jump_speed = 5;
             hitpoints = 50;
         }
     }
@@ -126,7 +137,11 @@ public class Agent : MonoBehaviour
 
     public void Die()
     {
-        gameObject.SetActive(false);
+        
+        level.GetComponent<GenerateEnemies>().Dec();
+        
+        Destroy(gameObject);
+        
     }
 }
 
