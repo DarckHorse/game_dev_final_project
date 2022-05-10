@@ -16,7 +16,7 @@ public class Health : MonoBehaviour
     void Update()
     {
         if (hp <= 0) {
-            Die();
+            gameObject.GetComponent<Agent>().Die();
         }
     }
 
@@ -25,10 +25,5 @@ public class Health : MonoBehaviour
         if (collider.gameObject.tag == "Weapon") {
             hp -= collider.gameObject.GetComponent<WeaponAgent>().Damage;
         }
-    }
-
-    void Die()
-    {
-        
     }
 }

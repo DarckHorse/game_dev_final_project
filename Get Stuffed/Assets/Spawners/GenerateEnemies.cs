@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GenerateEnemies : MonoBehaviour
 {
@@ -16,7 +17,7 @@ public class GenerateEnemies : MonoBehaviour
     void Start()
     {
         StartCoroutine(EnemyDrop());
-        mesh_rend = gameObject.GetComponent<MeshRenderer>();
+        mesh_rend = GameObject.Find(SceneManager.GetActiveScene().name).GetComponent<MeshRenderer>();
         extents = mesh_rend.bounds.extents;
         center = mesh_rend.bounds.center;
     }
@@ -27,7 +28,7 @@ public class GenerateEnemies : MonoBehaviour
     {
         while(enemyCount < 10)
         {
-            xPos = Random.Range(center.x - extents.x + 1,center.x + extents.x - 1);
+            xPos = Random.Range(center.x - extents.x,center.x + extents.x);
             zPos = Random.Range(center.z - extents.z,center.z + extents.z);
             Instantiate(theEnemy,new Vector3(xPos, 50, zPos), Quaternion.identity);
             yield return new WaitForSeconds(0.1f);

@@ -11,6 +11,7 @@ public class IControlGrounded : IBehavior
     {
         Debug.Log("Control Grounded");
         _agent = agent;
+        // _agent.velocity = new Vector3(_agent.velocity.x, 0, _agent.velocity.z);
     }
 
     // Update is called once per frame
@@ -21,15 +22,15 @@ public class IControlGrounded : IBehavior
             return;
         }
         else {
+            // Debug.Log("access velocity?");
+            velocity = (_agent.transform.forward * Input.GetAxis("Vertical") + _agent.transform.right * Input.GetAxis("Horizontal")) * _agent.Speed;
+            
+            if (Input.GetAxis("Jump") > 0)
             {
-                _agent.velocity = _agent.transform.forward * Input.GetAxis("Vertical") + _agent.transform.right * Input.GetAxis("Horizontal");
-                _agent.velocity = _agent.velocity * _agent.Speed;
-                
-                if (Input.GetAxis("Jump") > 0)
-                {
-                    _agent.velocity += Vector3.up * _agent.Jump_speed;
-                }
+                velocity += Vector3.up * _agent.Jump_speed;
             }
+
+            _agent.Velocity += velocity;
         }     
     }
 }

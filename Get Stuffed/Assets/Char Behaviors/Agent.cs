@@ -9,6 +9,8 @@ public class Agent : MonoBehaviour
     // Variables
 
     public GameObject target;
+    GameObject spawner;
+
     CharacterController cc;
     public CharacterController CC
     {
@@ -97,6 +99,8 @@ public class Agent : MonoBehaviour
         Debug.Log(velocity);
         CC.Move(velocity);
         // CC.Move(new Vector3(Math.Clamp(velocity.x, -1 * speed, speed), velocity.y, Math.Clamp(velocity.z, -1 * speed, speed)));
+
+        if (transform.position.y <= -10) Die();
     }
 
     private void OnTriggerStay(Collider other)
@@ -109,15 +113,15 @@ public class Agent : MonoBehaviour
 
     void setCharAtt()
     {
-        if (gameObject.tag == "Bunny") {
-            speed = 3;
-            jump_speed = 2;
-            hitpoints = 3;
-        }
-        else if (gameObject.tag == "Player") {
+        if (gameObject.tag == "Player") {
             speed = .5f;
             jump_speed = 50;
             hitpoints = 50;
+        }
+        else if (gameObject.tag == "Bunny") {
+            speed = 3;
+            jump_speed = 2;
+            hitpoints = 3;
         }
     }
     public bool CheckGround()
@@ -127,7 +131,10 @@ public class Agent : MonoBehaviour
 
     public void Die()
     {
-        gameObject.SetActive(false);
+        Destroy(gameObject);
+        if (gameObject.tag != "Player") {
+            gameObject.GetComponent<GenerateEnemies>().enemyCount -= 1;
+        }
     }
 }
 
