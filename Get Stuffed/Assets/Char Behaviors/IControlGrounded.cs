@@ -9,7 +9,7 @@ public class IControlGrounded : IBehavior
 
     public void Activate(Agent agent)
     {
-        // Debug.Log("Control Grounded");
+        Debug.Log("Control Grounded");
         _agent = agent;
     }
 

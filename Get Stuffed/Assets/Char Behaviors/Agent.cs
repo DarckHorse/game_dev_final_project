@@ -94,8 +94,9 @@ public class Agent : MonoBehaviour
         
         // cap !vertical velocity at speed
 
-        // Debug.Log(velocity);
-        CC.Move(new Vector3(Math.Clamp(velocity.x, -1 * speed, speed), velocity.y, Math.Clamp(velocity.z, -1 * speed, speed)));
+        Debug.Log(velocity);
+        CC.Move(velocity);
+        // CC.Move(new Vector3(Math.Clamp(velocity.x, -1 * speed, speed), velocity.y, Math.Clamp(velocity.z, -1 * speed, speed)));
     }
 
     private void OnTriggerStay(Collider other)

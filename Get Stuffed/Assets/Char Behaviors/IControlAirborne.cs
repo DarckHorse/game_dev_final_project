@@ -9,7 +9,7 @@ public class IControlAirborne : IBehavior
     // Start is called before the first frame update
     public void Activate(Agent agent)
     {
-        // Debug.Log("Control Airborne");
+        Debug.Log("Control Airborne");
         _agent = agent;
     }
 
