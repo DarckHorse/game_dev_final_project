@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/hallway.unity
+    guid: 2fb7d33cd2af91044b2e30f1bc38ff3a
   m_configObjects: {}

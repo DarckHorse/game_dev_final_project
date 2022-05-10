@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class IControlAirborne : IBehavior
 {    
-    float gravity = 10;
+    Vector3 velocity = Vector3.zero;
+    float gravity = -.5f;
     private Agent _agent;
     // Start is called before the first frame update
     public void Activate(Agent agent)
@@ -22,7 +23,8 @@ public class IControlAirborne : IBehavior
             return;
         }
         else {
-            _agent.velocity -= Vector3.up * gravity * Time.deltaTime;
+            velocity += Vector3.up * gravity * Time.deltaTime;
+            _agent.Velocity = velocity;
         }
     }
 }

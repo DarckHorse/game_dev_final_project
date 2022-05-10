@@ -70,11 +70,18 @@ public class Player_Control : MonoBehaviour
     }
 
     void OnTriggerEnter(Collider collider)
-    {
+    {        
         if (collider.tag == "Weapon") {
             hitpoints -= (int)collider.gameObject.GetComponent<WeaponAgent>().Damage;
             collider.gameObject.SetActive(false);
-        }
+
+        // collider.GetType() == typeof(MeshCollider) && 
+        if (collider.tag == "Door") {
+            Debug.Log("Hey");
+            transform.position = collider.gameObject.GetComponent<Door>().start_pos;
+            // SceneManager.LoadScene(next_loc);
+            }
+    }
     }
 }
 

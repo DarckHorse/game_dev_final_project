@@ -96,7 +96,7 @@ public class Agent : MonoBehaviour
         
         // cap !vertical velocity at speed
 
-        Debug.Log(velocity);
+        // Debug.Log(velocity);
         CC.Move(velocity);
         // CC.Move(new Vector3(Math.Clamp(velocity.x, -1 * speed, speed), velocity.y, Math.Clamp(velocity.z, -1 * speed, speed)));
 
@@ -114,8 +114,8 @@ public class Agent : MonoBehaviour
     void setCharAtt()
     {
         if (gameObject.tag == "Player") {
-            speed = .5f;
-            jump_speed = 50;
+            speed = 10f;
+            jump_speed = 500;
             hitpoints = 50;
         }
         else if (gameObject.tag == "Bunny") {
@@ -126,7 +126,7 @@ public class Agent : MonoBehaviour
     }
     public bool CheckGround()
     {
-        return cc.isGrounded;
+        return CC.isGrounded;
     }
 
     public void Die()

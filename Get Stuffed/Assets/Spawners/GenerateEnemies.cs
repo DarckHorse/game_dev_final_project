@@ -17,7 +17,7 @@ public class GenerateEnemies : MonoBehaviour
     void Start()
     {
         StartCoroutine(EnemyDrop());
-        mesh_rend = GameObject.Find(SceneManager.GetActiveScene().name).GetComponent<MeshRenderer>();
+        mesh_rend = gameObject.GetComponent<MeshRenderer>();
         extents = mesh_rend.bounds.extents;
         center = mesh_rend.bounds.center;
     }
