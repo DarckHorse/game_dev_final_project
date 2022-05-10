@@ -21,7 +21,7 @@ public class Agent : MonoBehaviour
         set { speed = value; }
     }
     float jump_speed;
-    public float Jump_Speed
+    public float Jump_speed
     {
         get { return jump_speed; }
         set { jump_speed = value; }

@@ -8,10 +8,17 @@ public class GenerateEnemies : MonoBehaviour
     public float xPos;
     public float zPos;
     public int enemyCount;
+    MeshRenderer mesh_rend;
+    Vector3 center;
+    Vector3 extents;
+
     // Start is called before the first frame update
     void Start()
     {
         StartCoroutine(EnemyDrop());
+        mesh_rend = gameObject.GetComponent<MeshRenderer>();
+        extents = mesh_rend.bounds.extents;
+        center = mesh_rend.bounds.center;
     }
 
 
@@ -20,9 +27,9 @@ public class GenerateEnemies : MonoBehaviour
     {
         while(enemyCount < 10)
         {
-            xPos = Random.Range(-1.4f,6.7f);
-            zPos = Random.Range(-4.4f, 4.4f);
-            Instantiate(theEnemy,new Vector3(xPos, 1, zPos), Quaternion.identity);
+            xPos = Random.Range(center.x - extents.x,center.x + extents.x);
+            zPos = Random.Range(center.z - extents.z,center.z + extents.z);
+            Instantiate(theEnemy,new Vector3(xPos, 50, zPos), Quaternion.identity);
             yield return new WaitForSeconds(0.1f);
             enemyCount +=1;
         }

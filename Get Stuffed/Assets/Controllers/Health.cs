@@ -26,4 +26,9 @@ public class Health : MonoBehaviour
             hp -= collider.gameObject.GetComponent<WeaponAgent>().Damage;
         }
     }
+
+    void Die()
+    {
+        
+    }
 }
