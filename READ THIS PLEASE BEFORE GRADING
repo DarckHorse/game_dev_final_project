@@ -1,0 +1,11 @@
+Began by trying to implement scripts that werent behaviors
+Decided to redo those scripts as behaviors for modularity and efficiency
+Built out the Meshes in Blender and imported them into unity
+Finished with 2 seperate games with seperate working functions
+Merge didnt work as planned
+branches finalrobert & FinalMarcus hold the 2 working games
+
+finalrobert holds the working scene switching and the working player controls
+FinalMarcus holds the Enemy Spawners, the shooting functionsality, and the working health script
+
+We felt that if we put these 2 together the resulting game would have been decent enough for this evening.
